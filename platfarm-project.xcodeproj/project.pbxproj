@@ -56,15 +56,31 @@
 		241D87F328D5E6D900FD2BD8 /* platfarm-project */ = {
 			isa = PBXGroup;
 			children = (
+				241D880928D5E6E900FD2BD8 /* View */,
+				241D880828D5E6E100FD2BD8 /* Assets */,
 				241D87F428D5E6D900FD2BD8 /* AppDelegate.swift */,
 				241D87F628D5E6D900FD2BD8 /* SceneDelegate.swift */,
 				241D87F828D5E6D900FD2BD8 /* ViewController.swift */,
 				241D87FA28D5E6D900FD2BD8 /* Main.storyboard */,
-				241D87FD28D5E6DA00FD2BD8 /* Assets.xcassets */,
 				241D87FF28D5E6DA00FD2BD8 /* LaunchScreen.storyboard */,
 				241D880228D5E6DA00FD2BD8 /* Info.plist */,
 			);
 			path = "platfarm-project";
+			sourceTree = "<group>";
+		};
+		241D880828D5E6E100FD2BD8 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				241D87FD28D5E6DA00FD2BD8 /* Assets.xcassets */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
+		241D880928D5E6E900FD2BD8 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
