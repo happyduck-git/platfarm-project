@@ -1,7 +1,12 @@
 # platfarm-project
 
 
-### 시연 영상
+## System Architecture
+<img width="599" alt="Screen Shot 2022-09-17 at 9 07 05 PM" src="https://user-images.githubusercontent.com/82161055/190855857-a26009b3-159d-4a17-8164-4a172716b5b8.png">
+
+
+
+## 시연 영상
 ### [Custom layout 미적용]
 ![RocketSim_Recording_iPhone_14_Pro_2022-09-17_20 50 08](https://user-images.githubusercontent.com/82161055/190855169-ab97a8ef-43a5-4430-b2a5-c08866888678.gif)
 
