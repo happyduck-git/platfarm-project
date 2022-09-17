@@ -192,9 +192,8 @@ class ViewController: UIViewController,
 
     private func collectionViewInit() {
               
-        let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: view.frame.size.width/3, height: view.frame.size.height/6)
-        layout.minimumInteritemSpacing = 150
+        let layout = CustomLayout()
+        layout.delegate = self
 
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
 
@@ -251,5 +250,13 @@ class ViewController: UIViewController,
         }
     }
     
+}
+
+extension ViewController: CustomLayoutDelegate {
+    func collectionView(_ collectionView: UICollectionView, xOffset indexPath: IndexPath) -> CGFloat {
+        
+        return 120
+
+    }
 }
 
