@@ -87,11 +87,9 @@ class CollectionViewCell: UICollectionViewCell {
     
     //MARK: - Button action
     @objc func deleteBtnInCellPressed() {
-        print("Delete btn inside a cell pressed")
         let num = Int(numberLabel.text!)
 
         linkedViewController?.removeDataAt(index: num!)
-        print(linkedViewController!.getDataArr())
         
     }
     

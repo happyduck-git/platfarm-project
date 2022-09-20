@@ -12,11 +12,12 @@ class ViewController: UIViewController,
                       UICollectionViewDataSource {
     
     //MARK: - Variables
-    //data
+    //data - userdefaults 사용
     var dataArr = Array<Int>()
     private var userDefault = UserDefaults.standard
     private let userDefaultCellData = "CellDataArray"
     
+    //UICollectionView 구성 요소
     private var collectionView: UICollectionView?
     private let layer = CAGradientLayer()
     private var alert: UIAlertController?
@@ -38,7 +39,6 @@ class ViewController: UIViewController,
         //add action
         button.addTarget(self, action: #selector(addBtnPressed), for: .touchUpInside)
 
-        
         return button
     }()
     
@@ -57,11 +57,11 @@ class ViewController: UIViewController,
         
         //add action
         button.addTarget(self, action: #selector(deleteBtnPressed), for: .touchUpInside)
-        
     
         return button
     }()
     
+    //add & delete 버튼을 담을 stackView
     private let buttonStackView: UIStackView = {
        
         let stackView = UIStackView()
@@ -100,6 +100,7 @@ class ViewController: UIViewController,
     
     
     //MARK: - CollectionView DataSource functions
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
         return getDataArr().count
@@ -112,8 +113,10 @@ class ViewController: UIViewController,
             fatalError()
         }
         
+        //cell과 연결된 viewController를 self로 지정
         cell.linkedViewController = self
         cell.commonInit(number: dataArr[indexPath.row])
+        //contentView를 180도 뒤집었으므로 cell은 원래대로 나오도록 회전
         cell.transform = CGAffineTransform(rotationAngle: CGFloat.pi)
 
         return cell
@@ -127,6 +130,7 @@ class ViewController: UIViewController,
         return dataArr
     }
     
+    //dataArr과 userDefault에 데이터 저장
     func addDataToArr() {
         if(dataArr.count != 0) {
             dataArr.append(dataArr[dataArr.endIndex - 1] + 1)
@@ -137,6 +141,7 @@ class ViewController: UIViewController,
         dispatchQueue()
     }
     
+    //dataArr과 userDefault에서 데이터 삭제
     func deleteDataToArr() {
         
         if(dataArr.count != 0) {
@@ -155,11 +160,7 @@ class ViewController: UIViewController,
         dispatchQueue()
     }
 
-    
-    func removeLast() {
-        dataArr.removeLast()
-    }
-    
+    //특정 셀 데이터 삭제
     func removeDataAt(index: Int) {
         
         for i in 0..<dataArr.count {
@@ -174,6 +175,7 @@ class ViewController: UIViewController,
     
     //MARK: - Layouts
     
+    //add & delete 버튼 layout
     private func stackViewLayout() {
         buttonStackView.addArrangedSubview(addBtn)
         buttonStackView.addArrangedSubview(deleteBtn)
@@ -181,6 +183,7 @@ class ViewController: UIViewController,
         buttonStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
     }
     
+    //background color 그라데이션
     private func gradientBackground() {
         layer.frame = view.bounds
         layer.colors = [Colors.mainPink.cgColor, Colors.white.cgColor]
@@ -190,24 +193,29 @@ class ViewController: UIViewController,
     }
     
 
+    //collectionView 생성
     private func collectionViewInit() {
-              
+    
+        //기본적인 layout인 FlowLayout사용
         let layout = UICollectionViewFlowLayout()
         layout.itemSize = CGSize(width: view.frame.size.width/3, height: view.frame.size.height/6)
         layout.minimumInteritemSpacing = 150
 
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
 
+        //사용할 collectionViewCell 등록
         collectionView?.register(CollectionViewCell.self,
                                                 forCellWithReuseIdentifier: CollectionViewCell.identifier)
         
     }
     
+    //colletionView의 레이아웃과 관계된 설정
     private func collectionViewLayout() {
         
         collectionView?.backgroundColor? = Colors.transparent
+        //collectionView를 거꾸로 돌려서 셀이 아래부터 추가되는 것처럼 효과를 줌
         collectionView?.transform = CGAffineTransform.init(rotationAngle: (-(CGFloat)(Double.pi)))
-        collectionView?.showsVerticalScrollIndicator = true
+        collectionView?.showsVerticalScrollIndicator = false
         
         collectionView?.translatesAutoresizingMaskIntoConstraints = false
         collectionView?.topAnchor.constraint(equalTo: buttonStackView.bottomAnchor, constant: 10).isActive = true
@@ -220,21 +228,18 @@ class ViewController: UIViewController,
     //MARK: - Button actions
     @objc func addBtnPressed() {
         // cell 추가하기
-
         addDataToArr()
-        
     }
     
     @objc func deleteBtnPressed() {
         // cell 삭제하기
-
         deleteDataToArr()
-
     }
     
     
     //MARK: - DispatchQueue
     
+    //reloadData를 위한 method
     private func dispatchQueue() {
     
         DispatchQueue.main.async {
@@ -244,6 +249,7 @@ class ViewController: UIViewController,
         }
     }
     
+    //가장 최근에 추가된 셀로 자동 scroll 하기 위한 method
     private func scrollToLastCell() {
         DispatchQueue.main.async {
             let indexPath = IndexPath(row: self.getDataArr().count - 1, section: 0)
